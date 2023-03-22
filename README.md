@@ -43,7 +43,7 @@ Additionally, you'll also need to set up a python virtual environment. The packa
 ---
 If you are in a rush, you can just refer to the following workflow:
 
-    mkdir /scratch/jv545/ncbi/              <-- This makes the scratch directory that multi_ranks.sh writes to
+    mkdir /scratch/[USER ID]/ncbi/              <-- This makes the scratch directory that multi_ranks.sh writes to
     
     sbatch multi_ranks.sh                   <-- This gets the taxids per sequence by going through each rank of the sequence and trying to find it in the tax file  (you'll need to make a scratch directory first)
     
