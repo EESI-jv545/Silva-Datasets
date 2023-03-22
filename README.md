@@ -53,7 +53,7 @@ If you are in a rush, you can just refer to the following workflow. Make sure yo
     
     python choose_50.py                     <-- This chooses 50% of the labels found in each rank; this will be used for one of our datasets later
     
-    sbatch general-multi_make_datasets.sh   <-- This makes the datasets; you'll need to specify the tax rank, whether you want the program to loop through several rows, and a threshhold for the percentage of sequences to include
+    sbatch general-multi_make_datasets.sh   <-- (calls general-multi_make_datasets.sh) This makes the datasets; you'll need to specify the tax rank, whether you want the program to loop through several rows, and a threshhold for the percentage of sequences to include
     
     ./all_ranks_debugger.sh                 <-- (Calls dataset_debugger.py) This checks through all of the datasets made for each rank makes sure we have the right number of sequences
     
