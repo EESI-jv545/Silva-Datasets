@@ -13,31 +13,25 @@ Welcome! This is the workflow to get sequences for the SILVA Dataset. We start w
 There is a Training and Testing File for each dataset, and both datasets are made from ranks going from phylum to genus (and optionally species)
 
 ---
-To start this, you'll need the following input files
-    - SILVA Fasta file with 16s sequences and headers
-        (sample names: [SILVA_138.1_SSURef_NR99_tax_silva.fasta](https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz))
-    - NCBI taxonomy mapping file to map SILVA sequences to NCBI taxids
-        (sample name: [tax_ncbi_ssu_ref_138.1.txt](https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/taxonomy/ncbi/tax_ncbi_ssu_ref_138.1.txt.gz))
+To start this, you'll need the following input files<br>
+<br>
+    - **SILVA Fasta file with 16s sequences and headers**
+        (sample name: [SILVA_138.1_SSURef_NR99_tax_silva.fasta](https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz))<br>
+    - **NCBI taxonomy mapping file to map SILVA sequences to NCBI taxids**
+        (sample name: [tax_ncbi_ssu_ref_138.1.txt](https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/taxonomy/ncbi/tax_ncbi_ssu_ref_138.1.txt.gz))<br>
+    - You can also find the directory with the [16s sequences here](https://www.arb-silva.de/no_cache/download/archive/release_138_1/Exports/) and the directory for the [tax mapping files here](https://www.arb-silva.de/no_cache/download/archive/release_138_1/Exports/taxonomy/ncbi/)
 
-Additionally, you'll also need to set up a python virtual environment. The packages that I use in my environent are:
-
-    - ete3
-    
-    - numpy
-    
-    - pip
-    
-    - pandas
-    
-    - python-dateutil
-    
-    - pytz
-    
-    - setup-tools
-    
-    - et-xmlfile
-    
-    - six
+Additionally, you'll also need to set up a python virtual environment. The packages that I use in my environent are:<br>
+<br>
+    - ete3<br>
+    - numpy<br>
+    - pip<br>
+    - pandas<br>
+    - python-dateutil<br>
+    - pytz<br>
+    - setup-tools<br>
+    - et-xmlfile<br>
+    - six<br>
     
 
 ---
