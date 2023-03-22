@@ -47,7 +47,7 @@ If you are in a rush, you can just refer to the following workflow. Make sure yo
     
     python compile_ranks.py                 <-- This compiles all of the results from multi_ranks together; we iterate through alot of sequences, so I made the previous program work in groups
     
-    python analyze_phyla.py                 <-- [You need to activate the python-env beforehand]   This gets the full taxonomic lineage per tax id, and creates a table for the sequences that have these lineages
+    python analyze_taxa.py                 <-- [You need to activate the python-env beforehand]   This gets the full taxonomic lineage per tax id, and creates a table for the sequences that have these lineages
     
     python sequences_per_rank.py            <-- This looks at the labels for each rank and sees which sequences have these labels
     
