@@ -35,12 +35,12 @@ Additionally, you'll also need to set up a python virtual environment. The packa
     
 
 ---
-If you are in a rush, you can just refer to the following workflow; make sure you create output directories for your Slurm ".out"/".err" docs, as well as folders for all of your results:
+If you are in a rush, you can just refer to the following workflow. Make sure you create output directories for your Slurm ".out"/".err" docs, as well as folders for all of your results; all of the programs in this Github Repository also have inputs that you can change to match your directory paths:
 
-    mkdir /scratch/[USER ID]/ncbi/              <-- This makes the scratch directory that multi_ranks.sh writes to
+    mkdir /scratch/[USER ID]/ncbi/          <-- This makes the scratch directory that multi_ranks.sh writes to
     
     
-    sbatch multi_ranks.sh                   <-- This gets the taxids per sequence by going through each rank of the sequence and trying to find it in the tax file  (you'll need to make a scratch directory first)
+    sbatch multi_ranks.sh                   <-- This gets the taxids per sequence by going through each rank of the sequence and trying to find it in the tax file; calls find_ranks.py
     
     python compile_ranks.py                 <-- This compiles all of the results from multi_ranks together; we iterate through alot of sequences, so I made the previous program work in groups
     
@@ -52,5 +52,5 @@ If you are in a rush, you can just refer to the following workflow; make sure yo
     
     sbatch general-multi_make_datasets.sh   <-- This makes the datasets; you'll need to specify the tax rank, whether you want the program to loop through several rows, and a threshhold for the percentage of sequences to include
     
-    ./all_ranks_debugger.sh                 <-- This checks through all of the datasets made for each rank makes sure we have the right number of sequences
+    ./all_ranks_debugger.sh                 <-- This checks through all of the datasets made for each rank makes sure we have the right number of sequences; calls datasets_debugger.py
     
