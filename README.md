@@ -1,16 +1,16 @@
 # Silva-Datasets
-Github Repository to create Tax-Labeled Datasets from 16s Silva Sequences for multiple Tax Ranks
+**Github Repository to create Tax-Labeled Datasets from 16s Silva Sequences for multiple Tax Ranks**
 
-by James Virtucio (jv545@drexel.edu)
+**by James Virtucio** (jv545@drexel.edu)
 
 ---
 Welcome! This is the workflow to get sequences for the SILVA Dataset. We start with a SILVA Fasta and NCBI Tax mapping file, and after assigning taxIDs and organizing sequences by taxononmy, we create two datasets, each with their own conditions:
 
--Dataset 1: We look at all of the sequences with 10 or more sequences and take 10% for training. The rest are used for testing
+-**Dataset 1:** We look at all of the sequences with 10 or more sequences and take 10% for training. The rest are used for testing
 
--Dataset 2: We take 50% of all labels that have 2 or more sequence, and 50% of the sequences in each label will be used for training. The rest (even sequences from unchosen labels) are used for testing
+-**Dataset 2:** We take 50% of all labels that have 2 or more sequence, and 50% of the sequences in each label will be used for training. The rest (even sequences from unchosen labels) are used for testing
 
-There are is a Training and Testing File for each dataset, and both datasets are made from ranks going from phylum to genus (and optionally species)
+There is a Training and Testing File for each dataset, and both datasets are made from ranks going from phylum to genus (and optionally species)
 
 ---
 To start this, you'll need the following input files
@@ -41,7 +41,7 @@ Additionally, you'll also need to set up a python virtual environment. The packa
     
 
 ---
-If you are in a rush, you can just refer to the following workflow:
+If you are in a rush, you can just refer to the following workflow; there are slurm scripts involved, so make sure you have Slurm write your ".out" and ".err" docs to the right directories, too:
 
     mkdir /scratch/[USER ID]/ncbi/              <-- This makes the scratch directory that multi_ranks.sh writes to
     
@@ -49,7 +49,7 @@ If you are in a rush, you can just refer to the following workflow:
     
     python compile_ranks.py                 <-- This compiles all of the results from multi_ranks together; we iterate through alot of sequences, so I made the previous program work in groups
     
-    python analyze_phyla.py                 <-- [You need to activate the python-env beforehand]   This gets the full taxonomic lineage per tax id, and creates a table for the sequences that have these lineages
+    python analyze_phyla.py                 <-- **[You need to activate the python-env beforehand]**   This gets the full taxonomic lineage per tax id, and creates a table for the sequences that have these lineages
     
     python sequences_per_rank.py            <-- This looks at the labels for each rank and sees which sequences have these labels
     
