@@ -15,9 +15,9 @@ There is a Training and Testing File for each dataset, and both datasets are mad
 ---
 To start this, you'll need the following input files
     - SILVA Fasta file with 16s sequences and headers
-        (sample names: SILVA_138.1_SSURef_NR99_tax_silva.fasta, DNA_SILVA_138.1_SSURef_NR99_tax_silva.fasta)
+        (sample names: [SILVA_138.1_SSURef_NR99_tax_silva.fasta](https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/SILVA_138.1_SSURef_NR99_tax_silva.fasta.gz))
     - NCBI taxonomy mapping file to map SILVA sequences to NCBI taxids
-        (sample name: tax_ncbi_ssu_ref_138.1.txt)
+        (sample name: [tax_ncbi_ssu_ref_138.1.txt](https://www.arb-silva.de/fileadmin/silva_databases/release_138_1/Exports/taxonomy/ncbi/tax_ncbi_ssu_ref_138.1.txt.gz))
 
 Additionally, you'll also need to set up a python virtual environment. The packages that I use in my environent are:
 
