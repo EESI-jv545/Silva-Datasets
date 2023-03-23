@@ -8,13 +8,14 @@ parser.add_argument('names_input', type=str, help="pathway to the names of the S
 parser.add_argument('tax_map', type=str, help="pathway to the file that maps Silva seqs to taxIDs")
 args = parser.parse_args()
 
+#assigns taxIDs to every 10000 sequences
 start=int(args.start)*10000
 end=start+10000
 
 output=str(args.output)
 names_file=str(args.names_input)
 tax_map=str(args.tax_map)
-
+#------------End of user Inputs-----------
 
 print(str(start), flush=True)
 
@@ -30,52 +31,37 @@ names=list(lines.iloc[:,0])
 if len(seq_names)<end:
     end=len(seq_names)
 
+#start to assign taxIDs to sequences
 print('starting!', flush=True)
 ranks_dict={}
 for i in seq_names[start:end]:
     print(str(seq_names.index(i)) + '------> ' + i, flush=True)
     number=[]
-    spot=1 #starting at the lowest rank (species) and then working up from there with each run of the while loop
+    spot=1 #starting at the lowest rank (species) and seeing if it has a taxID; if not, work up from there with each run of the while loop
     temp=''
     temp_name=''
     while number==[]:
-        rank=i.split(';')[spot*-1]+';'
+        rank=i.split(';')[spot*-1]+';'  #the NCBI file has semicolons after each rank label
         if 'phage' in rank or 'uncultured' in rank or 'unclassified' in rank or 'virus' in rank or 'Phage' in rank:
             spot+=1
             continue
-        # rank=i.split(';')[spot]
         if '>' in rank:
             rank=rank.split(' ')[1]
-        # temp_name+=rank
-        # if spot != i.count(';'):
-        #     temp_name += ';'
         for name in names:
             if 'Eukaryota' not in name and 'Archaea' not in name and 'Bacteria' not in name:
                 continue
-            # if temp not in name:
-            #     continue
             if rank in name:
                 row=names.index(name)
-                # if name == temp_name:
-                #     temp=name
-                #     break
                 if lines.iloc[row,2] != 'no rank':
                 # if lines.iloc[row,2] == 'phylum' and rank == name.split(';')[-2]:
                     number=lines.iloc[row,1]
                     break
-                # if lines.iloc[row,2] in ['class', 'order', 'genus' 'species'] and rank == name.split(';')[-2]:
-                #     number=lines.iloc[row,1]
-                #     break
-            # if spot == i.count(';'):
-            #     row=names.index(temp)
-            #     number=lines.iloc[row,1]
-            #     break
-        # else:
         spot+=1
     if number not in ranks_dict.keys():
         ranks_dict[number]=[]
     ranks_dict[number].append(i)
 
+#make a dataframe of all the taxID assignments
 df=pd.DataFrame({'taxID':[], 'sequences':[]})
 for i in ranks_dict.keys():
     df=df.append({'taxID':i, 'sequences':ranks_dict[i]},ignore_index=True)
