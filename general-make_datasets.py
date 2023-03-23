@@ -65,56 +65,36 @@ for r in ranks:
 
     weirds=[]
 
-    # csv=pd.read_excel('results/sequences_per_rank.xlsx', r)
-    csv=pd.read_csv(Prefix_seqs_for_each+r+'.csv')
-    # csv=pd.read_csv('results/seqs_for_each_'+r+'.csv')
+    csv=pd.read_csv(Prefix_seqs_for_each+r+'.csv')  #read the seqs_for_each file for the specified rank
 
-    # labels=list(csv.loc[start,(r+' label')])
-    labels=csv.loc[start:end,(r+' label')].to_list()
-    # good_labels=[csv.loc[x,(r+' label')] for x in range(0,len(csv.loc[:,(r+' label')])) if int(csv.loc[x, 'total sequences']) >= 2]
-    # pdb.set_trace()
+    labels=csv.loc[start:end,(r+' label')].to_list()   #get the labels for that rank
+
     with open(Labels_chosen) as f:
-        good_label_seqs=f.read().splitlines()
-    # headers_label_seqs=random.sample(good_label_seqs, int(0.5*len(good_labels)))
-    for i in labels:
-        # if i == 'Cryptococcus neoformans':
-        #     print('yoo')
-        # print(i)
+        good_label_seqs=f.read().splitlines()   #get the labels that were chosen in that rank
+
+    for i in labels:  #start iterating through all of the labels
         row=list(csv.loc[:,(r+' label')]).index(i)
         print(r + '--->' + i +'   ' + str(labels.index(i)/len(labels)))
-        # print(type(csv.loc[row,(r+' label')]))
-        # if int(csv.loc[row, 'total sequences']) < 10 or type(csv.loc[row,(r+' label')]) == float:
-        #     continue
-        # pdb.set_trace()
         headers=csv.loc[row, 'sequences'].replace('"','').replace("'",'').strip("'[]").split(", >")
         # l_headers=csv.loc[row, 'sequences']
         headers=[x.replace('\\','') for x in headers]
-        # for x in headers:
-        #     print(x)
-        #     print('\n')
-        # for x in headers:
-        #     if '>' not in x:
-        #         headers[headers.index(x)]='>'+x
+
         if len(headers)<threshhold and i not in good_label_seqs:   #NOTE: I made it so that if there's less than 10 sequences and the label is not one of the 50% chosen, the label gets skipped 
             continue
 
         if i in good_label_seqs:
-            headers_label_seqs=random.sample(headers, int(labels_seqs_divider*len(headers)))
+            headers_label_seqs=random.sample(headers, int(labels_seqs_divider*len(headers)))   #if the label was chosen, pick 50% of its sequences
         else:
             headers_label_seqs=[]
         
-        if len(headers) >=threshhold:
+        if len(headers) >=threshhold:   #if there's 10 or more sequences, get 10% of them
             headers_percentage=random.sample(headers, int(percentage*len(headers)))
         else:
             headers_percentage=[]
-        # for x in headers_percentage:
-        #     if '>' not in x:
-        #         x='>' +x
+
 
         counter=0
-        for h in headers:
-            # if 'CP001969.3027330' not in h:
-            #     continue
+        for h in headers:  #start iterating through all of the headers
             if not h.startswith('>'):
                 head='>'+h
             else:
@@ -122,10 +102,8 @@ for r in ranks:
             print(str(headers.index(h)) + ' : ' + h, flush=True)
             seq=''
             head=head.replace('\\','')
-            # if '>' not in h:
-            #     h='>'+h
-            # pdb.set_trace()
-            try:
+
+            try:   #find the header in the Silva Fasta file and write it to the datasets
                 short_index=all_seq_shorts.index(head.split(' ')[0])
             except:
                 short_index=all_seq_shorts.index(head.split(' ')[0].replace('U', 'T'))
@@ -141,7 +119,7 @@ for r in ranks:
             rest=''.join(all_seqs[all_seqs.index(all_seqs[index])+1:all_seqs.index(all_seqs[index])+40]) #a section of the file starting from the header loc; I know that the next section starts less than 40 lines after the header loc
             rest_end=rest.find('>')
 
-            if len(headers) >= threshhold:
+            if len(headers) >= threshhold:   #10% dataset
                 if h in headers_percentage:
                     chosen_headers_percentage.append(full_header)
                     chosen_seqs_percentage.append(rest[:rest_end])
@@ -151,7 +129,7 @@ for r in ranks:
                     test_seqs_percentage.append(rest[:rest_end])
                     test_lis_percentage.append(csv.loc[row, r+' label'])
             
-            if h in headers_label_seqs:
+            if h in headers_label_seqs: #50-50 dataset
                 chosen_headers_label_seqs.append(full_header)
                 chosen_seqs_label_seqs.append(rest[:rest_end])
                 lis_label_seqs.append(csv.loc[row, r+' label'])
@@ -159,21 +137,8 @@ for r in ranks:
                 test_headers_label_seqs.append(full_header)
                 test_seqs_label_seqs.append(rest[:rest_end])
                 test_lis_label_seqs.append(csv.loc[row, r+' label'])
-
-            # counter+=1
-            # for i in range(index+1,len(all_seqs)):
-            #     if all_seqs[i].startswith('>'):
-            #         end=i
-            #         break
-                    # pdb.set_trace()
-            # seq=''.join(all_seqs[index+1:end]) >FN182235.1.1716
-            # pdb.set_trace()
-            # chosen_seqs.append(seq)
-        # lis+=[csv.loc[row, r+' label']]*int((0.5*len(csv.loc[row, 'sequences'].strip("'[]").split("', '"))))
-        # lis+=[csv.loc[row, r+' label']]*int(counter)
-        # pdb.set_trace()
-    # remaining_label_seqs=[x for x in good_label_seqs if x not in ]
     
+    #start writing your datasets
     with open(output+'/training_'+str(labels_divider*100)+'-'+str(labels_seqs_divider*100)+'-'+r+'.txt', 'a') as f:
         for i in range(0,len(chosen_headers_label_seqs)):
             try:
