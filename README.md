@@ -58,4 +58,4 @@ If you are in a rush, you can just refer to the following workflow. Make sure yo
     ./all_ranks_debugger.sh                 <-- (Calls dataset_debugger.py) This checks through all of the datasets made for each rank makes sure we have the right number of sequences
 
 ---
-**For detailed information on the workflow, you can refer to this document [here](https://www.dropbox.com/scl/fi/s6morr1uwxcy0fo6ammzx/SILVA-Datasets-Pipeline-Details.docx?dl=0&rlkey=cb51ua8fwwuaddw8e370geqv9)**
+**For detailed information on the workflow and samples of output files, you can refer to this document [here](https://www.dropbox.com/scl/fi/s6morr1uwxcy0fo6ammzx/SILVA-Datasets-Pipeline-Details.docx?dl=0&rlkey=cb51ua8fwwuaddw8e370geqv9)**
