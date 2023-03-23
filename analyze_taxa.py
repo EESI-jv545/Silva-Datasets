@@ -18,52 +18,25 @@ weirds=[]
 cats=[]
 kingdoms=[]
 lost={}
-for i in range(0,len(csv.iloc[:,0])):
+for i in range(0,len(csv.iloc[:,0])):  #start getting rank labels for each taxID
     print(i/len(csv.iloc[:,0]))
     taxid=int(csv.iloc[i,0])
-    # taxid=77133
     ranks_dict={}
-    # if i==3:
-    #     break
-    # taxid=1301
     sequences=csv.loc[i,'sequences']
     total=int(csv.loc[i,'total sequences'])
     # print('TaxID= '+str(taxid))
     try:
-        lineage = ncbi.get_lineage(taxid)
+        lineage = ncbi.get_lineage(taxid)   #this gets the lineage of the taxID in the form of lineage IDs
     except:
-        weirds.append(taxid)
+        weirds.append(taxid)  #there's a few taxIDs from SILVA's NCBI-tax file that aren't in NCBI, but this might be due to differences between SILVA and NCBI
         continue
     # print(lineage)
     
-    ranks=ncbi.get_rank(lineage)
+    #gets the rank of each lineageID
+    ranks=ncbi.get_rank(lineage) 
     ranks_dict= dict([(value, key) for key, value in ranks.items()])
-    # print(ranks_dict.keys())
-    # try:
-    #     if ranks_dict['superkingdom']=='Viruses' or 'superkingdom' not in ranks_dict.keys():
-    #         pdb.set_trace()
-    # except:
-    #     pdb.set_trace()
-    # pdb.set_trace()
 
-    # print(ranks_dict)
-    names = ncbi.get_taxid_translator(lineage)
-    
-#     if 'superkingdom' not in ranks_dict.keys():
-#         lost[taxid]=sequences
-#     # print([names[taxid] for taxid in lineage])
-# with open('lost.txt','w') as f:
-#     for key in lost.keys():
-#         f.write(str(key))
-#         # f.write(': ')
-#         # f.write(lost[key])
-#         f.write('\n')
-# with open('lost_w_seqs.txt','w') as f:
-#     for key in lost.keys():
-#         f.write(str(key))
-#         f.write(': ')
-#         f.write(lost[key])
-#         f.write('\n')
+    names = ncbi.get_taxid_translator(lineage) #gets the names of each lineageID
 
     # print(taxid)
     ranks_dict['taxID']=taxid
@@ -71,7 +44,7 @@ for i in range(0,len(csv.iloc[:,0])):
     # pdb.set_trace()
     ranks_dict['sequences']=sequences
     
-    Nones=[x for x in full_dataframe.columns if x not in ranks_dict]
+    Nones=[x for x in full_dataframe.columns if x not in ranks_dict]  #some sequences can't be classified at levels like species; if that's the case, we leave it blank
     for i in Nones:
         ranks_dict[i]=None
     # if taxid == 134726:
@@ -79,15 +52,8 @@ for i in range(0,len(csv.iloc[:,0])):
     # full_ranks={}
     row_count=full_dataframe.shape[0]
     full_dataframe.loc[row_count] = [None]*len(full_dataframe.columns)
-    # print(list(ranks_dict.keys())[:-1])
-    # print(names)
 
-    # kingdom_list=[x for x in ranks_dict.keys() if 'kingdom' in x]
-    # if kingdom_list != []:
-    # if 'kingdom' in ranks_dict.keys():
-    #     if names[ranks_dict['kingdom']] not in kingdoms:
-    #         kingdoms.append(names[ranks_dict['kingdom']])
-
+    #start to turn the dictionary of rank labels into a dataframe
     for j in ranks_dict.keys():
         if ranks_dict[j] == None or j not in full_dataframe.columns:
             if j not in full_dataframe.columns and j not in cats:
@@ -102,7 +68,8 @@ for i in range(0,len(csv.iloc[:,0])):
 
 full_dataframe.to_csv(output+'/'+out_file, index=None)
 # full_dataframe.to_csv('results/no_backslash_all_ids_w_taxonomy.csv', index=None)
-#-----
+
+#----- SCRAP CODE HERE
 
 # print(kingdoms)
 # pdb.set_trace()
